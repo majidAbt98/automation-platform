@@ -82,12 +82,12 @@ const AuthFormTemplate = React.memo(
     const data = {
       signin: {
         title: t('Welcome Back!'),
-        description: t('Enter your email below to sign in to your account'),
+        description: t('Sign in to Digikala Automation Platform'),
         showNameFields: false,
       },
       signup: {
         title: t("Let's Get Started!"),
-        description: t('Create your account and start flowing!'),
+        description: t('Create your account on Digikala Automation Platform'),
         showNameFields: true,
       },
     }[form];
@@ -104,12 +104,7 @@ const AuthFormTemplate = React.memo(
 
     return (
       <>
-        {isCloud && (
-          <Link to="https://activepieces.com" target="_blank" rel="noreferrer">
-            <FullLogo />
-          </Link>
-        )}
-        {!isCloud && <FullLogo />}
+        <FullLogo />
         <Card className="w-md rounded-sm drop-shadow-xl">
           {!showCheckYourEmailNote && (
             <CardHeader className="text-center">
