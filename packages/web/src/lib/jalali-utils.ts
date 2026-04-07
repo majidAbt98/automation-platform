@@ -1,9 +1,4 @@
-/**
- * Jalali (Shamsi/Persian) calendar utilities.
- * Implements the Jalaali-to-Gregorian conversion algorithm.
- */
-
-import { toPersianDigits } from './persian-utils';
+import { persianUtils } from './persian-utils';
 
 const JALALI_MONTHS = [
   'فروردین',
@@ -20,17 +15,14 @@ const JALALI_MONTHS = [
   'اسفند',
 ];
 
-/**
- * Convert a Gregorian date to Jalali (Solar Hijri) date.
- * Returns [year, month, day] in Jalali calendar.
- */
-export function gregorianToJalali(
+// Converts Gregorian date components to Jalali (Solar Hijri) [year, month, day].
+function gregorianToJalali(
   gy: number,
   gm: number,
   gd: number,
 ): [number, number, number] {
   const gDaysInMonth = [0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334];
-  let gy2 = gm > 2 ? gy + 1 : gy;
+  const gy2 = gm > 2 ? gy + 1 : gy;
   let days =
     355666 +
     365 * gy +
@@ -47,28 +39,16 @@ export function gregorianToJalali(
     jy += Math.floor((days - 1) / 365);
     days = (days - 1) % 365;
   }
-  let jm: number;
   if (days < 186) {
-    jm = 1 + Math.floor(days / 31);
-    const jd = 1 + (days % 31);
-    return [jy, jm, jd];
-  } else {
-    jm = 7 + Math.floor((days - 186) / 30);
-    const jd = 1 + ((days - 186) % 30);
-    return [jy, jm, jd];
+    return [jy, 1 + Math.floor(days / 31), 1 + (days % 31)];
   }
+  return [jy, 7 + Math.floor((days - 186) / 30), 1 + ((days - 186) % 30)];
 }
 
-/**
- * Format a Date object as a Jalali date string.
- * @param date - JavaScript Date object
- * @param format - 'short' for YYYY/MM/DD, 'long' for DD MonthName YYYY
- * @param persianDigits - whether to use Persian digits
- */
-export function formatJalaliDate(
+function formatJalaliDate(
   date: Date,
   format: 'short' | 'long' = 'short',
-  persianDigits = true,
+  usePersianDigits = true,
 ): string {
   const [jy, jm, jd] = gregorianToJalali(
     date.getFullYear(),
@@ -76,37 +56,28 @@ export function formatJalaliDate(
     date.getDate(),
   );
 
-  let result: string;
-  if (format === 'long') {
-    result = `${jd} ${JALALI_MONTHS[jm - 1]} ${jy}`;
-  } else {
-    const mm = String(jm).padStart(2, '0');
-    const dd = String(jd).padStart(2, '0');
-    result = `${jy}/${mm}/${dd}`;
-  }
+  const result =
+    format === 'long'
+      ? `${jd} ${JALALI_MONTHS[jm - 1]} ${jy}`
+      : `${jy}/${String(jm).padStart(2, '0')}/${String(jd).padStart(2, '0')}`;
 
-  return persianDigits ? toPersianDigits(result) : result;
+  return usePersianDigits ? persianUtils.toPersianDigits(result) : result;
 }
 
-/**
- * Format a Date object as Jalali date + time string.
- */
-export function formatJalaliDateTime(
-  date: Date,
-  persianDigits = true,
-): string {
-  const dateStr = formatJalaliDate(date, 'short', persianDigits);
-  const hours = String(date.getHours()).padStart(2, '0');
-  const minutes = String(date.getMinutes()).padStart(2, '0');
-  const timeStr = `${hours}:${minutes}`;
-
+function formatJalaliDateTime(date: Date, usePersianDigits = true): string {
+  const dateStr = formatJalaliDate(date, 'short', usePersianDigits);
+  const timeStr = `${String(date.getHours()).padStart(2, '0')}:${String(date.getMinutes()).padStart(2, '0')}`;
   const result = `${dateStr} ${timeStr}`;
-  return persianDigits ? toPersianDigits(result) : result;
+  return usePersianDigits ? persianUtils.toPersianDigits(result) : result;
 }
 
-/**
- * Get the Jalali month name by index (1-based).
- */
-export function getJalaliMonthName(month: number): string {
-  return JALALI_MONTHS[month - 1] || '';
+function getJalaliMonthName(month: number): string {
+  return JALALI_MONTHS[month - 1] ?? '';
 }
+
+export const jalaliUtils = {
+  gregorianToJalali,
+  formatJalaliDate,
+  formatJalaliDateTime,
+  getJalaliMonthName,
+};
