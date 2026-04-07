@@ -354,6 +354,7 @@ import { AddUserFkIndices1774449358000 } from './migration/postgres/177444935800
 import { AddMcpOAuthTables1774500000000 } from './migration/postgres/1774500000000-AddMcpOAuthTables'
 import { AddCanaryToPlatformPlan1774600000000 } from './migration/postgres/1774600000000-AddCanaryToPlatformPlan'
 import { AddCompanyMapTables1712480400000 } from './migration/postgres/1712480400000-AddCompanyMapTables'
+import { SeedDigikalaTemplates1774700000000 } from './migration/postgres/1774700000000-SeedDigikalaTemplates'
 
 const getSslConfig = (): boolean | TlsOptions => {
     const useSsl = system.get(AppSystemProp.POSTGRES_USE_SSL)
@@ -723,6 +724,7 @@ export const getMigrations = (): (new () => Migration)[] => {
         AddMcpOAuthTables1774500000000,
         AddCanaryToPlatformPlan1774600000000,
         AddCompanyMapTables1712480400000,
+        SeedDigikalaTemplates1774700000000,
     ]
     return migrations
 }

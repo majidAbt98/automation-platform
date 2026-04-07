@@ -78,7 +78,6 @@ const AuthFormTemplate = React.memo(
     const { data: isEmailAuthEnabled } = flagsHooks.useFlag<boolean>(
       ApFlagId.EMAIL_AUTH_ENABLED,
     );
-    const isCloud = window.location.hostname === 'cloud.activepieces.com';
     const data = {
       signin: {
         title: t('Welcome Back!'),
