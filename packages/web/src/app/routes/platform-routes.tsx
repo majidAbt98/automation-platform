@@ -63,6 +63,14 @@ const PlatformTemplatesPage = React.lazy(() =>
   })),
 );
 const UsersPage = React.lazy(() => import('./platform/users'));
+const CompanyMapPage = React.lazy(
+  () => import('./platform/company-map'),
+);
+const CompanyMapProcessesPage = React.lazy(() =>
+  import('./platform/company-map/processes-page').then((m) => ({
+    default: m.ProcessesPage,
+  })),
+);
 
 function SuspenseWrapper({ children }: { children: React.ReactNode }) {
   return <Suspense fallback={<LoadingScreen />}>{children}</Suspense>;
@@ -340,6 +348,30 @@ export const platformRoutes = [
         <PageTitle title="Event Streaming">
           <SuspenseWrapper>
             <EventDestinationsPage />
+          </SuspenseWrapper>
+        </PageTitle>
+      </PlatformLayout>
+    ),
+  },
+  {
+    path: '/platform/company-map',
+    element: (
+      <PlatformLayout>
+        <PageTitle title="Company Map">
+          <SuspenseWrapper>
+            <CompanyMapPage />
+          </SuspenseWrapper>
+        </PageTitle>
+      </PlatformLayout>
+    ),
+  },
+  {
+    path: '/platform/company-map/processes',
+    element: (
+      <PlatformLayout>
+        <PageTitle title="Processes">
+          <SuspenseWrapper>
+            <CompanyMapProcessesPage />
           </SuspenseWrapper>
         </PageTitle>
       </PlatformLayout>

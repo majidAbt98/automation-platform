@@ -4,6 +4,8 @@ import {
     EntitySchema,
 } from 'typeorm'
 import { AIProviderEntity } from '../ai/ai-provider-entity'
+import { DepartmentEntity } from '../company-map/department/department-entity'
+import { DepartmentProcessEntity } from '../company-map/department-process/department-process-entity'
 import { PlatformAnalyticsReportEntity } from '../analytics/platform-analytics-report.entity'
 import { AppConnectionEntity } from '../app-connection/app-connection.entity'
 import { UserIdentityEntity } from '../authentication/user-identity/user-identity-entity'
@@ -119,6 +121,9 @@ function getEntities(): EntitySchema<unknown>[] {
         AppCredentialEntity,
         PlatformPlanEntity,
         EventDestinationEntity,
+        // Company Map
+        DepartmentEntity,
+        DepartmentProcessEntity,
 
     ]
 }

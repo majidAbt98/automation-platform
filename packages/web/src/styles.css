@@ -1,6 +1,30 @@
 @import 'tailwindcss';
 @import 'tw-animate-css';
 @custom-variant dark (&:is(.dark *));
+@custom-variant rtl (&:is([dir="rtl"] *));
+
+/* Vazirmatn — Persian/Arabic font */
+@font-face {
+  font-display: swap;
+  font-family: 'Vazirmatn';
+  font-style: normal;
+  font-weight: 400;
+  src: url('https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/fonts/webfonts/Vazirmatn-Regular.woff2') format('woff2');
+}
+@font-face {
+  font-display: swap;
+  font-family: 'Vazirmatn';
+  font-style: normal;
+  font-weight: 500;
+  src: url('https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/fonts/webfonts/Vazirmatn-Medium.woff2') format('woff2');
+}
+@font-face {
+  font-display: swap;
+  font-family: 'Vazirmatn';
+  font-style: normal;
+  font-weight: 700;
+  src: url('https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/fonts/webfonts/Vazirmatn-Bold.woff2') format('woff2');
+}
 
 /* inter-regular - latin */
 @font-face {
@@ -161,7 +185,7 @@
   --animate-slide-in-from-bottom: slide-in-from-bottom 0.2s ease-out forwards;
   --animate-primary-color-pulse: primary-color-pulse 1s ease-in-out infinite
     alternate;
-  --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif,
+  --font-sans: 'Inter', 'Vazirmatn', ui-sans-serif, system-ui, sans-serif,
     'Apple Color Emoji', 'Segoe UI Emoji', Segoe UI Symbol, 'Noto Color Emoji';
   --shadow-step-container: 0px 0px 22px hsl(var(--border) / 0.3);
   --shadow-add-button: var(--add-button-shadow);
@@ -281,10 +305,11 @@
     --ring: theme('colors.neutral.400');
     --radius: 0.5rem;
 
-    --primary-100: 257 75% 85%;
-    --primary: 257 74% 57%;
-    --primary-300: 257 74% 25%;
-    --primary-foreground: 210 20% 98%;
+    /* Digikala Brand — Primary Magenta/Red #EF394E */
+    --primary-100: 352 83% 90%;
+    --primary: 352 85% 58%;
+    --primary-300: 352 85% 30%;
+    --primary-foreground: 0 0% 100%;
 
     /* Success — Emerald */
     --success-50: 152 81% 96%;
@@ -339,7 +364,8 @@
 
     --sidebar-background: theme('colors.neutral.50');
     --sidebar-foreground: theme('colors.neutral.950');
-    --sidebar-primary: 257 74% 57%;
+    /* Digikala Sidebar Primary */
+    --sidebar-primary: 352 85% 58%;
     --sidebar-primary-foreground: theme('colors.neutral.50');
     --sidebar-accent: color-mix(
       in srgb,
@@ -617,4 +643,33 @@
 .tiptap h5,
 .tiptap h6 {
   font-size: 1rem;
+}
+
+/* ── RTL / Persian Support ── */
+html[dir='rtl'] {
+  font-family: 'Vazirmatn', 'Inter', ui-sans-serif, system-ui, sans-serif;
+}
+
+html[dir='rtl'] .tiptap ul,
+html[dir='rtl'] .tiptap ol {
+  padding-right: 1.5rem;
+  padding-left: 0;
+}
+
+/* Mirror directional icons in RTL mode */
+html[dir='rtl'] .rtl-mirror {
+  transform: scaleX(-1);
+}
+
+/* Flip sidebar sheet slide direction in RTL */
+html[dir='rtl'] [data-slot='sheet-content'][data-state='open'] {
+  --tw-enter-translate-x: -100% !important;
+}
+html[dir='rtl'] [data-slot='sheet-content'][data-state='closed'] {
+  --tw-exit-translate-x: -100% !important;
+}
+
+/* Fix tiptap placeholder float for RTL */
+html[dir='rtl'] .tiptap p.is-editor-empty:first-child::before {
+  float: right;
 }

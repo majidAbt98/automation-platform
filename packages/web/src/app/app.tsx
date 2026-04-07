@@ -33,8 +33,23 @@ const queryClient = new QueryClient({
   }),
 });
 
+const RTL_LOCALES = ['fa', 'ar'];
+
 export function App() {
   const { i18n } = useTranslation();
+
+  // Set document direction and lang based on current locale
+  React.useEffect(() => {
+    const isRtl = RTL_LOCALES.includes(i18n.language);
+    document.documentElement.dir = isRtl ? 'rtl' : 'ltr';
+    document.documentElement.lang = i18n.language;
+    if (isRtl) {
+      document.documentElement.classList.add('rtl');
+    } else {
+      document.documentElement.classList.remove('rtl');
+    }
+  }, [i18n.language]);
+
   return (
     <QueryClientProvider client={queryClient}>
       <RefreshAnalyticsProvider>

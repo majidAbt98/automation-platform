@@ -34,6 +34,7 @@ export * from './lib/management/invitations'
 export * from './lib/management/analytics'
 export * from './lib/management/ai-providers'
 export * from './lib/management/template'
+export * from './lib/management/company-map'
 
 // automation
 export * from './lib/automation/flows/actions/action'

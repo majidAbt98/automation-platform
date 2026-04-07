@@ -4,6 +4,7 @@ import { ComponentType, useRef } from 'react';
 import { Link } from 'react-router-dom';
 
 import { BotIcon } from '@/components/icons/bot';
+import { BuildingIcon } from '@/components/icons/building';
 import {
   ChevronLeftIcon,
   ChevronLeftIconHandle,
@@ -24,6 +25,7 @@ import { SquareDashedBottomCodeIcon } from '@/components/icons/square-dashed-bot
 import { UnplugIcon } from '@/components/icons/unplug';
 import { UsersIcon } from '@/components/icons/users';
 import { WebhookIcon } from '@/components/icons/webhook';
+import { WorkflowIcon } from '@/components/icons/workflow';
 import { buttonVariants } from '@/components/ui/button';
 import {
   Sidebar,
@@ -118,6 +120,21 @@ export function PlatformSidebar() {
           to: '/platform/users',
           label: t('Users'),
           icon: UsersIcon,
+        },
+      ],
+    },
+    {
+      label: t('Company Map'),
+      items: [
+        {
+          to: '/platform/company-map',
+          label: t('Department Map'),
+          icon: BuildingIcon,
+        },
+        {
+          to: '/platform/company-map/processes',
+          label: t('Processes'),
+          icon: WorkflowIcon,
         },
       ],
     },

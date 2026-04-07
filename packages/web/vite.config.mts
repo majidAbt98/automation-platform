@@ -11,8 +11,8 @@ import customHtmlPlugin from './vite-plugins/html-plugin';
 export default defineConfig(({ command, mode }) => {
   const isDev = command === 'serve' || mode === 'development';
 
-  const AP_TITLE = 'Activepieces';
-  const AP_FAVICON = 'https://activepieces.com/favicon.ico';
+  const AP_TITLE = 'دیجی‌کالا اتوماسیون | Digikala Automation';
+  const AP_FAVICON = '/digikala-logo.svg';
 
   return {
     root: __dirname,
